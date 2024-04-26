@@ -1,0 +1,20 @@
+version: '3.3'
+
+services:
+  nginx_dev_test:
+    image: nginx:alpine
+    volumes:
+      - ./nginx_conf:/etc/nginx
+      - ./data.json:/var/www/localhost/public/data.json
+    ports:
+      - '80:80'
+  next_dev_test:
+    build: ./next-js
+    ports:
+      - 3002:3002
+    environment:
+      - PORT=3002
+    command: npm run dev
+    volumes:
+      - ./next-js:/app
+      - /app/node_modules
